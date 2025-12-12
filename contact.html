@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - JM Mobiliário</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .contact-hero {
+            height: 50vh;
+            min-height: 400px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+        }
+
+        .contact-hero-content {
+            text-align: center;
+            color: var(--white);
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .contact-hero-title {
+            font-size: clamp(3rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        .contact-hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .contact-section {
+            padding: 6rem 0;
+            background-color: var(--white);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            position: sticky;
+            top: 120px;
+        }
+
+        .info-item {
+            margin-bottom: 3rem;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--white);
+        }
+
+        .info-item h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .info-item p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .info-item a {
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .info-item a:hover {
+            color: var(--accent);
+        }
+
+        .contact-form-container {
+            background-color: var(--secondary);
+            padding: 4rem;
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .form-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            font-size: 1rem;
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            background-color: var(--white);
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .submit-button {
+            width: 100%;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1.25rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-button:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+
+        .map-section {
+            padding: 0;
+            height: 500px;
+            background-color: var(--secondary);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .map-placeholder-content {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .map-placeholder h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .map-placeholder p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .hours-section {
+            background-color: var(--white);
+            padding: 6rem 0;
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .hours-card {
+            background-color: var(--secondary);
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .hours-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .hours-list {
+            list-style: none;
+        }
+
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+        }
+
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+
+        .hours-day {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .hours-time {
+            color: var(--text-light);
+        }
+
+        @media (max-width: 1024px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .contact-info {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-hero {
+                min-height: 300px;
+                margin-top: 70px;
+            }
+
+            .contact-section,
+            .hours-section {
+                padding: 4rem 0;
+            }
+
+            .contact-form-container {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .map-section {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="index.html"><img src="logo.png" alt="JM Logo"></a>
+            </div>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="about.html" class="nav-link">JM</a></li>
+                    <li><a href="catalog.html" class="nav-link">Catalogo</a></li>
+                    <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                    <li><a href="showroom.html" class="nav-link">Showroom</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="contact.html" class="cta-button">Peça já o seu orçamento</a>
+                    <div class="language-toggle">
+                        <button class="lang-btn active" data-lang="pt">PT</button>
+                        <span class="lang-separator">|</span>
+                        <button class="lang-btn" data-lang="en">EN</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="contact-hero-content">
+            <h1 class="contact-hero-title" data-pt="Entre em Contacto" data-en="Get in Touch">Entre em Contacto</h1>
+            <p class="contact-hero-subtitle" data-pt="Estamos prontos para dar vida aos seus sonhos de mobiliário" data-en="We're ready to bring your furniture dreams to life">Estamos prontos para dar vida aos seus sonhos de mobiliário</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Information -->
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <h3 data-pt="Localização" data-en="Location">Localização</h3>
+                        <p data-pt="Avenida da Liberdade, 245<br>1250-143 Lisboa<br>Portugal" data-en="Avenida da Liberdade, 245<br>1250-143 Lisbon<br>Portugal">Avenida da Liberdade, 245<br>1250-143 Lisboa<br>Portugal</p>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </div>
+                        <h3 data-pt="Telefone" data-en="Phone">Telefone</h3>
+                        <p><a href="tel:+351210000000">+351 210 000 000</a><br><a href="tel:+351965432198">+351 965 432 198</a></p>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <h3 data-pt="Email" data-en="Email">Email</h3>
+                        <p><a href="mailto:info@jm-mobiliario.pt">info@jm-mobiliario.pt</a><br><a href="mailto:vendas@jm-mobiliario.pt">vendas@jm-mobiliario.pt</a></p>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                        <h3 data-pt="Horário de Funcionamento" data-en="Business Hours">Horário de Funcionamento</h3>
+                        <p data-pt="Segunda a Sexta: 9:00 - 19:00<br>Sábado: 10:00 - 14:00<br>Domingo: Fechado" data-en="Monday to Friday: 9:00 AM - 7:00 PM<br>Saturday: 10:00 AM - 2:00 PM<br>Sunday: Closed">Segunda a Sexta: 9:00 - 19:00<br>Sábado: 10:00 - 14:00<br>Domingo: Fechado</p>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <h2 class="form-title" data-pt="Solicite o Seu Orçamento" data-en="Request Your Quote">Solicite o Seu Orçamento</h2>
+                    <p class="form-subtitle" data-pt="Preencha o formulário abaixo e entraremos em contacto consigo em 24 horas." data-en="Fill out the form below and we'll contact you within 24 hours.">Preencha o formulário abaixo e entraremos em contacto consigo em 24 horas.</p>
+
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName" class="form-label" data-pt="Nome" data-en="First Name">Nome</label>
+                                <input type="text" id="firstName" name="firstName" class="form-input" required data-pt placeholder="João" data-en placeholder="John">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName" class="form-label" data-pt="Apelido" data-en="Last Name">Apelido</label>
+                                <input type="text" id="lastName" name="lastName" class="form-input" required data-pt placeholder="Silva" data-en placeholder="Smith">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email" class="form-label" data-pt="Email" data-en="Email">Email</label>
+                                <input type="email" id="email" name="email" class="form-input" required data-pt placeholder="seu@email.pt" data-en placeholder="your@email.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" class="form-label" data-pt="Telefone" data-en="Phone">Telefone</label>
+                                <input type="tel" id="phone" name="phone" class="form-input" required data-pt placeholder="+351 000 000 000" data-en placeholder="+351 000 000 000">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category" class="form-label" data-pt="Categoria de Interesse" data-en="Category of Interest">Categoria de Interesse</label>
+                            <select id="category" name="category" class="form-select" required>
+                                <option value="" data-pt>Selecione uma categoria</option>
+                                <option value="cadeiroes" data-pt>Cadeirões</option>
+                                <option value="cadeiras" data-pt>Cadeiras e Pufs</option>
+                                <option value="sofas" data-pt>Sofás</option>
+                                <option value="chaise" data-pt>Chaise Lounges</option>
+                                <option value="cabeceiras" data-pt>Cabeceiras / Sommiers</option>
+                                <option value="outro" data-pt>Outro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject" class="form-label" data-pt="Assunto" data-en="Subject">Assunto</label>
+                            <input type="text" id="subject" name="subject" class="form-input" required data-pt placeholder="Ex: Orçamento para sala de estar" data-en placeholder="Ex: Quote for living room">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label" data-pt="Mensagem" data-en="Message">Mensagem</label>
+                            <textarea id="message" name="message" class="form-textarea" required data-pt placeholder="Descreva o seu projeto e necessidades..." data-en placeholder="Describe your project and needs..."></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-button" data-pt="Enviar Pedido" data-en="Send Request">Enviar Pedido</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-container">
+            <div class="map-placeholder">
+                <div class="map-placeholder-content">
+                    <h3 data-pt="Visite o Nosso Showroom" data-en="Visit Our Showroom">Visite o Nosso Showroom</h3>
+                    <p data-pt="Avenida da Liberdade, 245 - Lisboa" data-en="Avenida da Liberdade, 245 - Lisbon">Avenida da Liberdade, 245 - Lisboa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hours Section -->
+    <section class="hours-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label" data-pt="HORÁRIOS" data-en="HOURS">HORÁRIOS</span>
+                <h2 class="section-title" data-pt="Quando Visitar" data-en="When to Visit">Quando Visitar</h2>
+            </div>
+
+            <div class="hours-grid">
+                <div class="hours-card">
+                    <h3 data-pt="Showroom" data-en="Showroom">Showroom</h3>
+                    <ul class="hours-list">
+                        <li>
+                            <span class="hours-day" data-pt="Segunda - Sexta" data-en="Monday - Friday">Segunda - Sexta</span>
+                            <span class="hours-time">9:00 - 19:00</span>
+                        </li>
+                        <li>
+                            <span class="hours-day" data-pt="Sábado" data-en="Saturday">Sábado</span>
+                            <span class="hours-time">10:00 - 14:00</span>
+                        </li>
+                        <li>
+                            <span class="hours-day" data-pt="Domingo" data-en="Sunday">Domingo</span>
+                            <span class="hours-time" data-pt="Fechado" data-en="Closed">Fechado</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="hours-card">
+                    <h3 data-pt="Atelier / Oficina" data-en="Workshop">Atelier / Oficina</h3>
+                    <ul class="hours-list">
+                        <li>
+                            <span class="hours-day" data-pt="Segunda - Quinta" data-en="Monday - Thursday">Segunda - Quinta</span>
+                            <span class="hours-time">8:00 - 18:00</span>
+                        </li>
+                        <li>
+                            <span class="hours-day" data-pt="Sexta" data-en="Friday">Sexta</span>
+                            <span class="hours-time">8:00 - 16:00</span>
+                        </li>
+                        <li>
+                            <span class="hours-day" data-pt="Fim de Semana" data-en="Weekend">Fim de Semana</span>
+                            <span class="hours-time" data-pt="Fechado" data-en="Closed">Fechado</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="hours-card">
+                    <h3 data-pt="Serviço ao Cliente" data-en="Customer Service">Serviço ao Cliente</h3>
+                    <ul class="hours-list">
+                        <li>
+                            <span class="hours-day" data-pt="Segunda - Sexta" data-en="Monday - Friday">Segunda - Sexta</span>
+                            <span class="hours-time">9:00 - 20:00</span>
+                        </li>
+                        <li>
+                            <span class="hours-day" data-pt="Sábado" data-en="Saturday">Sábado</span>
+                            <span class="hours-time">10:00 - 16:00</span>
+                        </li>
+                        <li>
+                            <span class="hours-day" data-pt="Domingo" data-en="Sunday">Domingo</span>
+                            <span class="hours-time" data-pt="Fechado" data-en="Closed">Fechado</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo"><img src="logo.png" alt="JM Logo"></div>
+                    <p class="footer-text" data-pt="Criando mobiliário de luxo excecional desde 1985. Qualidade, elegância e artesanato em cada peça." data-en="Creating exceptional luxury furniture since 1985. Quality, elegance and craftsmanship in every piece.">Criando mobiliário de luxo excecional desde 1985. Qualidade, elegância e artesanato em cada peça.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Navegação" data-en="Navigation">Navegação</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html" data-pt="Inicio" data-en="Home">Inicio</a></li>
+                        <li><a href="about.html" data-pt="Sobre Nós" data-en="About Us">Sobre Nós</a></li>
+                        <li><a href="catalog.html" data-pt="Catálogo" data-en="Catalog">Catálogo</a></li>
+                        <li><a href="portfolio.html" data-pt="Portfolio" data-en="Portfolio">Portfolio</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Contacto" data-en="Contact">Contacto</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@jm-mobiliario.pt">info@jm-mobiliario.pt</a></li>
+                        <li><a href="tel:+351210000000">+351 210 000 000</a></li>
+                        <li data-pt="Lisboa, Portugal" data-en="Lisbon, Portugal">Lisboa, Portugal</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Siga-nos" data-en="Follow Us">Siga-nos</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.237 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.182-.78 1.172-4.97 1.172-4.97s-.299-.6-.299-1.486c0-1.39.806-2.428 1.81-2.428.852 0 1.264.64 1.264 1.408 0 .858-.545 2.14-.828 3.33-.236.995.5 1.807 1.48 1.807 1.778 0 3.144-1.874 3.144-4.58 0-2.393-1.72-4.068-4.176-4.068-2.845 0-4.516 2.135-4.516 4.34 0 .859.331 1.781.745 2.281a.3.3 0 0 1 .069.288l-.278 1.133c-.044.183-.145.223-.335.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.965-.525-2.291-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-pt="&copy; 2024 JM Mobiliário. Todos os direitos reservados." data-en="&copy; 2024 JM Furniture. All rights reserved.">&copy; 2024 JM Mobiliário. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            // In a real application, you would send this to a server
+            console.log('Form submitted:', data);
+
+            // Show success message
+            alert(currentLang === 'pt' ?
+                'Obrigado pelo seu contacto! Entraremos em contacto consigo brevemente.' :
+                'Thank you for contacting us! We will get back to you shortly.');
+
+            // Reset form
+            this.reset();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showroom - JM Mobiliário</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .wip-section {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--white) 100%);
+            margin-top: 80px;
+            padding: 4rem 2rem;
+        }
+
+        .wip-container {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .wip-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .wip-icon svg {
+            width: 60px;
+            height: 60px;
+            stroke: var(--white);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(44, 24, 16, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 20px rgba(44, 24, 16, 0);
+            }
+        }
+
+        .wip-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .wip-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .wip-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            text-align: left;
+        }
+
+        .wip-feature {
+            background-color: var(--white);
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+
+        .wip-feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .wip-feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .wip-feature-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--white);
+        }
+
+        .wip-feature h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .wip-feature p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .wip-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .wip-button-primary {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1.25rem 3rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 2px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .wip-button-primary:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+
+        .wip-button-secondary {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--primary);
+            padding: 1.25rem 3rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 2px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .wip-button-secondary:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        @media (max-width: 768px) {
+            .wip-section {
+                min-height: calc(100vh - 70px);
+                margin-top: 70px;
+            }
+
+            .wip-icon {
+                width: 100px;
+                height: 100px;
+            }
+
+            .wip-icon svg {
+                width: 50px;
+                height: 50px;
+            }
+
+            .wip-features {
+                grid-template-columns: 1fr;
+            }
+
+            .wip-buttons {
+                flex-direction: column;
+            }
+
+            .wip-button-primary,
+            .wip-button-secondary {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="index.html"><img src="logo.png" alt="JM Logo"></a>
+            </div>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="about.html" class="nav-link">JM</a></li>
+                    <li><a href="catalog.html" class="nav-link">Catalogo</a></li>
+                    <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                    <li><a href="showroom.html" class="nav-link active">Showroom</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="contact.html" class="cta-button">Peça já o seu orçamento</a>
+                    <div class="language-toggle">
+                        <button class="lang-btn active" data-lang="pt">PT</button>
+                        <span class="lang-separator">|</span>
+                        <button class="lang-btn" data-lang="en">EN</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Work in Progress Section -->
+    <section class="wip-section">
+        <div class="wip-container">
+            <div class="wip-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                </svg>
+            </div>
+
+            <h1 class="wip-title" data-pt="Showroom em Construção" data-en="Showroom Under Construction">Showroom em Construção</h1>
+
+            <p class="wip-subtitle" data-pt="Estamos a criar uma experiência única para si. O nosso showroom virtual estará disponível em breve, onde poderá explorar as nossas coleções exclusivas de forma imersiva e interativa." data-en="We are creating a unique experience for you. Our virtual showroom will be available soon, where you can explore our exclusive collections in an immersive and interactive way.">Estamos a criar uma experiência única para si. O nosso showroom virtual estará disponível em breve, onde poderá explorar as nossas coleções exclusivas de forma imersiva e interativa.</p>
+
+            <div class="wip-buttons">
+                <a href="catalog.html" class="wip-button-primary" data-pt="Ver Catálogo" data-en="View Catalog">Ver Catálogo</a>
+                <a href="contact.html" class="wip-button-secondary" data-pt="Agendar Visita Presencial" data-en="Schedule In-Person Visit">Agendar Visita Presencial</a>
+            </div>
+
+            <div class="wip-features">
+                <div class="wip-feature">
+                    <div class="wip-feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                        </svg>
+                    </div>
+                    <h3 data-pt="Visualização 360°" data-en="360° Visualization">Visualização 360°</h3>
+                    <p data-pt="Explore cada peça de todos os ângulos com tecnologia de visualização imersiva." data-en="Explore each piece from all angles with immersive viewing technology.">Explore cada peça de todos os ângulos com tecnologia de visualização imersiva.</p>
+                </div>
+
+                <div class="wip-feature">
+                    <div class="wip-feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </div>
+                    <h3 data-pt="Configurador Virtual" data-en="Virtual Configurator">Configurador Virtual</h3>
+                    <p data-pt="Personalize cores, materiais e acabamentos em tempo real." data-en="Customize colors, materials and finishes in real time.">Personalize cores, materiais e acabamentos em tempo real.</p>
+                </div>
+
+                <div class="wip-feature">
+                    <div class="wip-feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </div>
+                    <h3 data-pt="Orçamento Instantâneo" data-en="Instant Quote">Orçamento Instantâneo</h3>
+                    <p data-pt="Receba propostas personalizadas e detalhadas imediatamente." data-en="Receive personalized and detailed quotes immediately.">Receba propostas personalizadas e detalhadas imediatamente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo"><img src="logo.png" alt="JM Logo"></div>
+                    <p class="footer-text" data-pt="Criando mobiliário de luxo excecional desde 1985. Qualidade, elegância e artesanato em cada peça." data-en="Creating exceptional luxury furniture since 1985. Quality, elegance and craftsmanship in every piece.">Criando mobiliário de luxo excecional desde 1985. Qualidade, elegância e artesanato em cada peça.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Navegação" data-en="Navigation">Navegação</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html" data-pt="Inicio" data-en="Home">Inicio</a></li>
+                        <li><a href="about.html" data-pt="Sobre Nós" data-en="About Us">Sobre Nós</a></li>
+                        <li><a href="catalog.html" data-pt="Catálogo" data-en="Catalog">Catálogo</a></li>
+                        <li><a href="portfolio.html" data-pt="Portfolio" data-en="Portfolio">Portfolio</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Contacto" data-en="Contact">Contacto</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@jm-mobiliario.pt">info@jm-mobiliario.pt</a></li>
+                        <li><a href="tel:+351210000000">+351 210 000 000</a></li>
+                        <li data-pt="Lisboa, Portugal" data-en="Lisbon, Portugal">Lisboa, Portugal</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Siga-nos" data-en="Follow Us">Siga-nos</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.237 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.182-.78 1.172-4.97 1.172-4.97s-.299-.6-.299-1.486c0-1.39.806-2.428 1.81-2.428.852 0 1.264.64 1.264 1.408 0 .858-.545 2.14-.828 3.33-.236.995.5 1.807 1.48 1.807 1.778 0 3.144-1.874 3.144-4.58 0-2.393-1.72-4.068-4.176-4.068-2.845 0-4.516 2.135-4.516 4.34 0 .859.331 1.781.745 2.281a.3.3 0 0 1 .069.288l-.278 1.133c-.044.183-.145.223-.335.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.965-.525-2.291-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-pt="&copy; 2024 JM Mobiliário. Todos os direitos reservados." data-en="&copy; 2024 JM Furniture. All rights reserved.">&copy; 2024 JM Mobiliário. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - JM Mobiliário</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .portfolio-hero {
+            height: 50vh;
+            min-height: 400px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+        }
+
+        .portfolio-hero-content {
+            text-align: center;
+            color: var(--white);
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .portfolio-hero-title {
+            font-size: clamp(3rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .portfolio-section {
+            padding: 6rem 0;
+        }
+
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: none;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.75rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 450px;
+            overflow: hidden;
+            cursor: pointer;
+            background-color: var(--secondary);
+        }
+
+        .gallery-item.large {
+            grid-column: span 2;
+            height: 550px;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.85));
+            opacity: 0;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2.5rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-category {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-title {
+            font-size: 1.8rem;
+            color: var(--white);
+            margin-bottom: 0.75rem;
+        }
+
+        .gallery-description {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        .testimonials-section {
+            background-color: var(--white);
+            padding: 6rem 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--secondary);
+            padding: 3rem;
+            position: relative;
+        }
+
+        .quote-icon {
+            width: 50px;
+            height: 50px;
+            color: var(--accent);
+            opacity: 0.3;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 5rem 0;
+            color: var(--white);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 1024px) {
+            .gallery-item.large {
+                grid-column: span 1;
+                height: 450px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-hero {
+                min-height: 300px;
+                margin-top: 70px;
+            }
+
+            .portfolio-section,
+            .testimonials-section {
+                padding: 4rem 0;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item,
+            .gallery-item.large {
+                height: 350px;
+            }
+
+            .portfolio-filters {
+                gap: 1rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="index.html"><img src="logo.png" alt="JM Logo"></a>
+            </div>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="about.html" class="nav-link">JM</a></li>
+                    <li><a href="catalog.html" class="nav-link">Catalogo</a></li>
+                    <li><a href="portfolio.html" class="nav-link active">Portfolio</a></li>
+                    <li><a href="showroom.html" class="nav-link">Showroom</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="contact.html" class="cta-button">Peça já o seu orçamento</a>
+                    <div class="language-toggle">
+                        <button class="lang-btn active" data-lang="pt">PT</button>
+                        <span class="lang-separator">|</span>
+                        <button class="lang-btn" data-lang="en">EN</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="portfolio-hero">
+        <div class="portfolio-hero-content">
+            <h1 class="portfolio-hero-title" data-pt="Portfolio" data-en="Portfolio">Portfolio</h1>
+            <p class="portfolio-hero-subtitle" data-pt="Projetos que transformaram espaços em obras de arte" data-en="Projects that transformed spaces into works of art">Projetos que transformaram espaços em obras de arte</p>
+        </div>
+    </section>
+
+    <!-- Portfolio Gallery -->
+    <section class="portfolio-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label" data-pt="TRABALHOS REALIZADOS" data-en="COMPLETED WORKS">TRABALHOS REALIZADOS</span>
+                <h2 class="section-title" data-pt="Projetos de Excelência" data-en="Projects of Excellence">Projetos de Excelência</h2>
+            </div>
+
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all" data-pt="Todos" data-en="All">Todos</button>
+                <button class="filter-btn" data-filter="residential" data-pt="Residencial" data-en="Residential">Residencial</button>
+                <button class="filter-btn" data-filter="commercial" data-pt="Comercial" data-en="Commercial">Comercial</button>
+                <button class="filter-btn" data-filter="hospitality" data-pt="Hotelaria" data-en="Hospitality">Hotelaria</button>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item large" data-category="residential">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&h=800&fit=crop" alt="Apartamento Lisboa" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category" data-pt="RESIDENCIAL" data-en="RESIDENTIAL">RESIDENCIAL</span>
+                        <h3 class="gallery-title" data-pt="Apartamento de Luxo em Lisboa" data-en="Luxury Apartment in Lisbon">Apartamento de Luxo em Lisboa</h3>
+                        <p class="gallery-description" data-pt="Mobiliário completo para penthouse de 300m² na zona histórica de Lisboa." data-en="Complete furniture for 300m² penthouse in the historic area of Lisbon.">Mobiliário completo para penthouse de 300m² na zona histórica de Lisboa.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="commercial">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=600&fit=crop" alt="Escritório Corporativo" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category" data-pt="COMERCIAL" data-en="COMMERCIAL">COMERCIAL</span>
+                        <h3 class="gallery-title" data-pt="Escritório Corporativo" data-en="Corporate Office">Escritório Corporativo</h3>
+                        <p class="gallery-description" data-pt="Sala de reuniões executiva com mobiliário sob medida." data-en="Executive meeting room with custom furniture.">Sala de reuniões executiva com mobiliário sob medida.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="residential">
+                    <img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=800&h=600&fit=crop" alt="Sala de Estar" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category" data-pt="RESIDENCIAL" data-en="RESIDENTIAL">RESIDENCIAL</span>
+                        <h3 class="gallery-title" data-pt="Sala de Estar Minimalista" data-en="Minimalist Living Room">Sala de Estar Minimalista</h3>
+                        <p class="gallery-description" data-pt="Design contemporâneo com peças exclusivas em madeira nobre." data-en="Contemporary design with exclusive pieces in noble wood.">Design contemporâneo com peças exclusivas em madeira nobre.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="hospitality">
+                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&h=600&fit=crop" alt="Hotel Boutique" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category" data-pt="HOTELARIA" data-en="HOSPITALITY">HOTELARIA</span>
+                        <h3 class="gallery-title" data-pt="Hotel Boutique Porto" data-en="Porto Boutique Hotel">Hotel Boutique Porto</h3>
+                        <p class="gallery-description" data-pt="Mobiliário completo para 25 suites de luxo." data-en="Complete furniture for 25 luxury suites.">Mobiliário completo para 25 suites de luxo.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item large" data-category="residential">
+                    <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1200&h=800&fit=crop" alt="Quarto Principal" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category" data-pt="RESIDENCIAL" data-en="RESIDENTIAL">RESIDENCIAL</span>
+                        <h3 class="gallery-title" data-pt="Quarto Principal de Sonho" data-en="Dream Master Bedroom">Quarto Principal de Sonho</h3>
+                        <p class="gallery-description" data-pt="Suite master com cabeceira personalizada e móveis sob encomenda." data-en="Master suite with custom headboard and bespoke furniture.">Suite master com cabeceira personalizada e móveis sob encomenda.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="commercial">
+                    <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop" alt="Espaço Coworking" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category" data-pt="COMERCIAL" data-en="COMMERCIAL">COMERCIAL</span>
+                        <h3 class="gallery-title" data-pt="Espaço Coworking Premium" data-en="Premium Coworking Space">Espaço Coworking Premium</h3>
+                        <p class="gallery-description" data-pt="Design funcional e elegante para espaço colaborativo moderno." data-en="Functional and elegant design for modern collaborative space.">Design funcional e elegante para espaço colaborativo moderno.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="hospitality">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop" alt="Restaurante" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category" data-pt="HOTELARIA" data-en="HOSPITALITY">HOTELARIA</span>
+                        <h3 class="gallery-title" data-pt="Restaurante Gourmet" data-en="Gourmet Restaurant">Restaurante Gourmet</h3>
+                        <p class="gallery-description" data-pt="Ambiente sofisticado com cadeiras e mesas personalizadas." data-en="Sophisticated ambiance with custom chairs and tables.">Ambiente sofisticado com cadeiras e mesas personalizadas.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="residential">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop" alt="Biblioteca" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category" data-pt="RESIDENCIAL" data-en="RESIDENTIAL">RESIDENCIAL</span>
+                        <h3 class="gallery-title" data-pt="Biblioteca Clássica" data-en="Classic Library">Biblioteca Clássica</h3>
+                        <p class="gallery-description" data-pt="Estantes em madeira maciça e mobiliário clássico sob medida." data-en="Solid wood shelves and classic bespoke furniture.">Estantes em madeira maciça e mobiliário clássico sob medida.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item large" data-category="commercial">
+                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&h=800&fit=crop" alt="Showroom" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category" data-pt="COMERCIAL" data-en="COMMERCIAL">COMERCIAL</span>
+                        <h3 class="gallery-title" data-pt="Showroom de Moda" data-en="Fashion Showroom">Showroom de Moda</h3>
+                        <p class="gallery-description" data-pt="Espaço de exposição com design minimalista e funcional." data-en="Exhibition space with minimalist and functional design.">Espaço de exposição com design minimalista e funcional.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label" data-pt="Projetos Completos" data-en="Completed Projects">Projetos Completos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">40</div>
+                    <div class="stat-label" data-pt="Anos de Experiência" data-en="Years of Experience">Anos de Experiência</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label" data-pt="Clientes Satisfeitos" data-en="Satisfied Clients">Clientes Satisfeitos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">25</div>
+                    <div class="stat-label" data-pt="Artesãos Especializados" data-en="Skilled Artisans">Artesãos Especializados</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label" data-pt="TESTEMUNHOS" data-en="TESTIMONIALS">TESTEMUNHOS</span>
+                <h2 class="section-title" data-pt="O Que Dizem os Nossos Clientes" data-en="What Our Clients Say">O Que Dizem os Nossos Clientes</h2>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
+                        <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
+                    </svg>
+                    <p class="testimonial-text" data-pt="A JM transformou completamente o nosso apartamento. A qualidade das peças é excecional e o atendimento personalizado superou todas as expectativas. Recomendo vivamente!" data-en="JM completely transformed our apartment. The quality of the pieces is exceptional and the personalized service exceeded all expectations. Highly recommend!">A JM transformou completamente o nosso apartamento. A qualidade das peças é excecional e o atendimento personalizado superou todas as expectativas. Recomendo vivamente!</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop" alt="Maria Silva" class="author-image">
+                        <div class="author-info">
+                            <h4>Maria Silva</h4>
+                            <p data-pt="Designer de Interiores" data-en="Interior Designer">Designer de Interiores</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
+                        <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
+                    </svg>
+                    <p class="testimonial-text" data-pt="Trabalhar com a JM foi uma experiência incrível. Desde o primeiro contacto até à entrega final, tudo foi perfeito. As peças são verdadeiras obras de arte." data-en="Working with JM was an incredible experience. From first contact to final delivery, everything was perfect. The pieces are true works of art.">Trabalhar com a JM foi uma experiência incrível. Desde o primeiro contacto até à entrega final, tudo foi perfeito. As peças são verdadeiras obras de arte.</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop" alt="João Santos" class="author-image">
+                        <div class="author-info">
+                            <h4>João Santos</h4>
+                            <p data-pt="Arquiteto" data-en="Architect">Arquiteto</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
+                        <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
+                    </svg>
+                    <p class="testimonial-text" data-pt="Para o nosso hotel escolhemos a JM e foi a melhor decisão. O mobiliário é de uma qualidade superior e os nossos hóspedes elogiam constantemente o conforto e elegância." data-en="For our hotel we chose JM and it was the best decision. The furniture is of superior quality and our guests constantly praise the comfort and elegance.">Para o nosso hotel escolhemos a JM e foi a melhor decisão. O mobiliário é de uma qualidade superior e os nossos hóspedes elogiam constantemente o conforto e elegância.</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop" alt="Ana Costa" class="author-image">
+                        <div class="author-info">
+                            <h4>Ana Costa</h4>
+                            <p data-pt="Gestora Hoteleira" data-en="Hotel Manager">Gestora Hoteleira</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title" data-pt="Quer Ser o Nosso Próximo Projeto?" data-en="Want to Be Our Next Project?">Quer Ser o Nosso Próximo Projeto?</h2>
+                <p class="cta-text" data-pt="Entre em contacto e vamos criar algo extraordinário juntos." data-en="Get in touch and let's create something extraordinary together.">Entre em contacto e vamos criar algo extraordinário juntos.</p>
+                <a href="contact.html" class="cta-button-large" data-pt="Começar Projeto" data-en="Start Project">Começar Projeto</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo"><img src="logo.png" alt="JM Logo"></div>
+                    <p class="footer-text" data-pt="Criando mobiliário de luxo excecional desde 1985. Qualidade, elegância e artesanato em cada peça." data-en="Creating exceptional luxury furniture since 1985. Quality, elegance and craftsmanship in every piece.">Criando mobiliário de luxo excecional desde 1985. Qualidade, elegância e artesanato em cada peça.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Navegação" data-en="Navigation">Navegação</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html" data-pt="Inicio" data-en="Home">Inicio</a></li>
+                        <li><a href="about.html" data-pt="Sobre Nós" data-en="About Us">Sobre Nós</a></li>
+                        <li><a href="catalog.html" data-pt="Catálogo" data-en="Catalog">Catálogo</a></li>
+                        <li><a href="portfolio.html" data-pt="Portfolio" data-en="Portfolio">Portfolio</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Contacto" data-en="Contact">Contacto</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@jm-mobiliario.pt">info@jm-mobiliario.pt</a></li>
+                        <li><a href="tel:+351210000000">+351 210 000 000</a></li>
+                        <li data-pt="Lisboa, Portugal" data-en="Lisbon, Portugal">Lisboa, Portugal</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Siga-nos" data-en="Follow Us">Siga-nos</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.237 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.182-.78 1.172-4.97 1.172-4.97s-.299-.6-.299-1.486c0-1.39.806-2.428 1.81-2.428.852 0 1.264.64 1.264 1.408 0 .858-.545 2.14-.828 3.33-.236.995.5 1.807 1.48 1.807 1.778 0 3.144-1.874 3.144-4.58 0-2.393-1.72-4.068-4.176-4.068-2.845 0-4.516 2.135-4.516 4.34 0 .859.331 1.781.745 2.281a.3.3 0 0 1 .069.288l-.278 1.133c-.044.183-.145.223-.335.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.965-.525-2.291-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-pt="&copy; 2024 JM Mobiliário. Todos os direitos reservados." data-en="&copy; 2024 JM Furniture. All rights reserved.">&copy; 2024 JM Mobiliário. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

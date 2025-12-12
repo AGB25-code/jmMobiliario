@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - JM Mobiliário</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .catalog-hero {
+            height: 50vh;
+            min-height: 400px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+        }
+
+        .catalog-hero-content {
+            text-align: center;
+            color: var(--white);
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .catalog-hero-title {
+            font-size: clamp(3rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        .catalog-hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .catalog-section {
+            padding: 5rem 0;
+            scroll-margin-top: 100px;
+        }
+
+        .catalog-section:nth-child(even) {
+            background-color: var(--white);
+        }
+
+        .catalog-section:nth-child(odd) {
+            background-color: var(--secondary);
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .category-name {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .category-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 3rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-name {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .product-description {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .product-button {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .product-button:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+
+        .filter-section {
+            background-color: var(--white);
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
+        }
+
+        .filter-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-link {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            transition: var(--transition);
+            padding-bottom: 0.25rem;
+            border-bottom: 2px solid transparent;
+        }
+
+        .filter-link:hover,
+        .filter-link.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .catalog-hero {
+                min-height: 300px;
+                margin-top: 70px;
+            }
+
+            .catalog-section {
+                padding: 3rem 0;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .filter-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .filter-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="index.html"><img src="logo.png" alt="JM Logo"></a>
+            </div>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="about.html" class="nav-link">JM</a></li>
+                    <li><a href="catalog.html" class="nav-link active">Catalogo</a></li>
+                    <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                    <li><a href="showroom.html" class="nav-link">Showroom</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="contact.html" class="cta-button">Peça já o seu orçamento</a>
+                    <div class="language-toggle">
+                        <button class="lang-btn active" data-lang="pt">PT</button>
+                        <span class="lang-separator">|</span>
+                        <button class="lang-btn" data-lang="en">EN</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="catalog-hero">
+        <div class="catalog-hero-content">
+            <h1 class="catalog-hero-title" data-pt="Catálogo Premium" data-en="Premium Catalog">Catálogo Premium</h1>
+            <p class="catalog-hero-subtitle" data-pt="Explore a nossa coleção de mobiliário de luxo excecional" data-en="Explore our collection of exceptional luxury furniture">Explore a nossa coleção de mobiliário de luxo excecional</p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-container">
+                <span class="filter-label" data-pt="FILTRAR POR:" data-en="FILTER BY:">FILTRAR POR:</span>
+                <div class="filter-links">
+                    <a href="#cadeiroes" class="filter-link" data-pt="Cadeirões" data-en="Armchairs">Cadeirões</a>
+                    <a href="#cadeiras" class="filter-link" data-pt="Cadeiras & Pufs" data-en="Chairs & Poufs">Cadeiras & Pufs</a>
+                    <a href="#sofas" class="filter-link" data-pt="Sofás" data-en="Sofas">Sofás</a>
+                    <a href="#chaise" class="filter-link" data-pt="Chaise" data-en="Chaise Lounges">Chaise</a>
+                    <a href="#cabeceiras" class="filter-link" data-pt="Cabeceiras / Sommiers" data-en="Headboards / Box Springs">Cabeceiras / Sommiers</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CADEIRÕES -->
+    <section id="cadeiroes" class="catalog-section">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-name" data-pt="CADEIRÕES" data-en="ARMCHAIRS">CADEIRÕES</h2>
+                <p class="category-description" data-pt="Peças de conforto supremo e elegância intemporal. Os nossos cadeirões são criados para proporcionar não apenas descanso, mas uma experiência de luxo incomparável." data-en="Pieces of supreme comfort and timeless elegance. Our armchairs are created to provide not just rest, but an incomparable luxury experience.">Peças de conforto supremo e elegância intemporal. Os nossos cadeirões são criados para proporcionar não apenas descanso, mas uma experiência de luxo incomparável.</p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&h=700&fit=crop" alt="Cadeirão Clássico">
+                        <span class="product-badge" data-pt="NOVO" data-en="NEW">NOVO</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Cadeirão Imperial" data-en="Imperial Armchair">Cadeirão Imperial</h3>
+                        <p class="product-description" data-pt="Design clássico em veludo premium com estrutura em madeira de carvalho maciço." data-en="Classic design in premium velvet with solid oak wood structure.">Design clássico em veludo premium com estrutura em madeira de carvalho maciço.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=600&h=700&fit=crop" alt="Cadeirão Moderno">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Cadeirão Windsor" data-en="Windsor Armchair">Cadeirão Windsor</h3>
+                        <p class="product-description" data-pt="Linhas contemporâneas com couro italiano e detalhes em bronze envelhecido." data-en="Contemporary lines with Italian leather and aged bronze details.">Linhas contemporâneas com couro italiano e detalhes em bronze envelhecido.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=600&h=700&fit=crop" alt="Cadeirão Luxo">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Cadeirão Versailles" data-en="Versailles Armchair">Cadeirão Versailles</h3>
+                        <p class="product-description" data-pt="Inspiração barroca com estofos em seda e estrutura folheada a ouro." data-en="Baroque inspiration with silk upholstery and gold-plated structure.">Inspiração barroca com estofos em seda e estrutura folheada a ouro.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CADEIRAS E PUFS -->
+    <section id="cadeiras" class="catalog-section">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-name" data-pt="CADEIRAS E PUFS" data-en="CHAIRS & POUFS">CADEIRAS E PUFS</h2>
+                <p class="category-description" data-pt="Versatilidade e estilo em cada peça. Cadeiras e pufs que complementam qualquer ambiente com sofisticação e funcionalidade." data-en="Versatility and style in every piece. Chairs and poufs that complement any environment with sophistication and functionality.">Versatilidade e estilo em cada peça. Cadeiras e pufs que complementam qualquer ambiente com sofisticação e funcionalidade.</p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=700&fit=crop" alt="Cadeira Elegante">
+                        <span class="product-badge" data-pt="NOVO" data-en="NEW">NOVO</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Cadeira Escandinávia" data-en="Scandinavia Chair">Cadeira Escandinávia</h3>
+                        <p class="product-description" data-pt="Design minimalista em madeira de nogueira com assento em linho natural." data-en="Minimalist design in walnut wood with natural linen seat.">Design minimalista em madeira de nogueira com assento em linho natural.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1503602642458-232111445657?w=600&h=700&fit=crop" alt="Puf Luxo">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Puf Imperador" data-en="Emperor Pouf">Puf Imperador</h3>
+                        <p class="product-description" data-pt="Puf rotundo em veludo capitoné com base em latão polido." data-en="Round pouf in tufted velvet with polished brass base.">Puf rotundo em veludo capitoné com base em latão polido.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=600&h=700&fit=crop" alt="Cadeira Design">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Cadeira Milão" data-en="Milan Chair">Cadeira Milão</h3>
+                        <p class="product-description" data-pt="Inspiração italiana com estrutura cromada e assento em couro sintético premium." data-en="Italian inspiration with chrome structure and premium synthetic leather seat.">Inspiração italiana com estrutura cromada e assento em couro sintético premium.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&h=700&fit=crop" alt="Puf Moderno">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Puf Contemporâneo" data-en="Contemporary Pouf">Puf Contemporâneo</h3>
+                        <p class="product-description" data-pt="Design geométrico em tecido bouclé com enchimento de alta densidade." data-en="Geometric design in bouclé fabric with high-density filling.">Design geométrico em tecido bouclé com enchimento de alta densidade.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOFÁS -->
+    <section id="sofas" class="catalog-section">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-name" data-pt="SOFÁS" data-en="SOFAS">SOFÁS</h2>
+                <p class="category-description" data-pt="O centro de qualquer sala de estar. Sofás desenhados para proporcionar o máximo conforto sem comprometer a estética luxuosa." data-en="The center of any living room. Sofas designed to provide maximum comfort without compromising luxurious aesthetics.">O centro de qualquer sala de estar. Sofás desenhados para proporcionar o máximo conforto sem comprometer a estética luxuosa.</p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=700&fit=crop" alt="Sofá Moderno">
+                        <span class="product-badge" data-pt="NOVO" data-en="NEW">NOVO</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Sofá Chesterfield Moderno" data-en="Modern Chesterfield Sofa">Sofá Chesterfield Moderno</h3>
+                        <p class="product-description" data-pt="Reinterpretação contemporânea do clássico, em couro envelhecido artesanalmente." data-en="Contemporary reinterpretation of the classic, in artisan-aged leather.">Reinterpretação contemporânea do clássico, em couro envelhecido artesanalmente.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&h=700&fit=crop" alt="Sofá Contemporâneo">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Sofá Minimalista Copenhaga" data-en="Copenhagen Minimalist Sofa">Sofá Minimalista Copenhaga</h3>
+                        <p class="product-description" data-pt="Linhas puras e limpas em linho belga com estrutura em madeira maciça." data-en="Pure and clean lines in Belgian linen with solid wood structure.">Linhas puras e limpas em linho belga com estrutura em madeira maciça.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1550254478-ead40cc54513?w=600&h=700&fit=crop" alt="Sofá Luxo">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Sofá Grand Palazzo" data-en="Grand Palazzo Sofa">Sofá Grand Palazzo</h3>
+                        <p class="product-description" data-pt="Opulência suprema em veludo italiano com detalhes em madrepérola." data-en="Supreme opulence in Italian velvet with mother-of-pearl details.">Opulência suprema em veludo italiano com detalhes em madrepérola.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHAISE -->
+    <section id="chaise" class="catalog-section">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-name" data-pt="CHAISE LOUNGES" data-en="CHAISE LOUNGES">CHAISE LOUNGES</h2>
+                <p class="category-description" data-pt="Elegância reclinada. Peças icónicas que combinam o melhor do conforto com design escultural." data-en="Reclined elegance. Iconic pieces that combine the best of comfort with sculptural design.">Elegância reclinada. Peças icónicas que combinam o melhor do conforto com design escultural.</p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=600&h=700&fit=crop" alt="Chaise Clássica">
+                        <span class="product-badge" data-pt="DESTAQUE" data-en="FEATURED">DESTAQUE</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Chaise Récamier" data-en="Récamier Chaise">Chaise Récamier</h3>
+                        <p class="product-description" data-pt="Design neoclássico em veludo de seda com estrutura dourada à mão." data-en="Neoclassical design in silk velvet with hand-gilded structure.">Design neoclássico em veludo de seda com estrutura dourada à mão.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1589584158111-6de1f6a28a17?w=600&h=700&fit=crop" alt="Chaise Moderna">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Chaise Modernista" data-en="Modernist Chaise">Chaise Modernista</h3>
+                        <p class="product-description" data-pt="Formas orgânicas em couro caramelo com estrutura em mogno." data-en="Organic forms in caramel leather with mahogany structure.">Formas orgânicas em couro caramelo com estrutura em mogno.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1586158291800-2665f07bba79?w=600&h=700&fit=crop" alt="Chaise Contemporânea">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Chaise Zen" data-en="Zen Chaise">Chaise Zen</h3>
+                        <p class="product-description" data-pt="Minimalismo japonês em linho cru com base em bambu tratado." data-en="Japanese minimalism in raw linen with treated bamboo base.">Minimalismo japonês em linho cru com base em bambu tratado.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CABECEIRAS / SOMMIERS -->
+    <section id="cabeceiras" class="catalog-section">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-name" data-pt="CABECEIRAS / SOMMIERS" data-en="HEADBOARDS / BOX SPRINGS">CABECEIRAS / SOMMIERS</h2>
+                <p class="category-description" data-pt="Transforme o seu quarto num santuário. Cabeceiras e sommiers que elevam o descanso a uma experiência de luxo absoluto." data-en="Transform your bedroom into a sanctuary. Headboards and box springs that elevate rest to an absolute luxury experience.">Transforme o seu quarto num santuário. Cabeceiras e sommiers que elevam o descanso a uma experiência de luxo absoluto.</p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&h=700&fit=crop" alt="Cabeceira Luxo">
+                        <span class="product-badge" data-pt="NOVO" data-en="NEW">NOVO</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Cabeceira Royal Suite" data-en="Royal Suite Headboard">Cabeceira Royal Suite</h3>
+                        <p class="product-description" data-pt="Cabeceira capitoné em veludo premium com botões Swarovski." data-en="Tufted headboard in premium velvet with Swarovski buttons.">Cabeceira capitoné em veludo premium com botões Swarovski.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&h=700&fit=crop" alt="Sommier Elegante">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Sommier Imperial" data-en="Imperial Box Spring">Sommier Imperial</h3>
+                        <p class="product-description" data-pt="Base sommier em linho natural com sistema de armazenamento integrado." data-en="Box spring base in natural linen with integrated storage system.">Base sommier em linho natural com sistema de armazenamento integrado.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1615529162924-f8605388461d?w=600&h=700&fit=crop" alt="Cabeceira Moderna">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Cabeceira Geometria" data-en="Geometry Headboard">Cabeceira Geometria</h3>
+                        <p class="product-description" data-pt="Design contemporâneo com painéis em madeira folheada e iluminação LED integrada." data-en="Contemporary design with veneered wood panels and integrated LED lighting.">Design contemporâneo com painéis em madeira folheada e iluminação LED integrada.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=600&h=700&fit=crop" alt="Conjunto Completo">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-pt="Conjunto Palazzo Completo" data-en="Complete Palazzo Set">Conjunto Palazzo Completo</h3>
+                        <p class="product-description" data-pt="Cabeceira e sommier harmonizados em couro italiano com detalhes em bronze." data-en="Harmonized headboard and box spring in Italian leather with bronze details.">Cabeceira e sommier harmonizados em couro italiano com detalhes em bronze.</p>
+                        <div class="product-footer">
+                            <span class="product-price" data-pt="Sob Consulta" data-en="Price on Request">Sob Consulta</span>
+                            <button class="product-button" data-pt="Solicitar" data-en="Request">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title" data-pt="Interessado numa Peça?" data-en="Interested in a Piece?">Interessado numa Peça?</h2>
+                <p class="cta-text" data-pt="Contacte-nos para personalização, medidas ou mais informações sobre qualquer produto." data-en="Contact us for customization, measurements or more information about any product.">Contacte-nos para personalização, medidas ou mais informações sobre qualquer produto.</p>
+                <a href="contact.html" class="cta-button-large" data-pt="Solicitar Orçamento Personalizado" data-en="Request Custom Quote">Solicitar Orçamento Personalizado</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo"><img src="logo.png" alt="JM Logo"></div>
+                    <p class="footer-text" data-pt="Criando mobiliário de luxo excecional desde 1985. Qualidade, elegância e artesanato em cada peça." data-en="Creating exceptional luxury furniture since 1985. Quality, elegance and craftsmanship in every piece.">Criando mobiliário de luxo excecional desde 1985. Qualidade, elegância e artesanato em cada peça.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Navegação" data-en="Navigation">Navegação</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html" data-pt="Inicio" data-en="Home">Inicio</a></li>
+                        <li><a href="about.html" data-pt="Sobre Nós" data-en="About Us">Sobre Nós</a></li>
+                        <li><a href="catalog.html" data-pt="Catálogo" data-en="Catalog">Catálogo</a></li>
+                        <li><a href="portfolio.html" data-pt="Portfolio" data-en="Portfolio">Portfolio</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Contacto" data-en="Contact">Contacto</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@jm-mobiliario.pt">info@jm-mobiliario.pt</a></li>
+                        <li><a href="tel:+351210000000">+351 210 000 000</a></li>
+                        <li data-pt="Lisboa, Portugal" data-en="Lisbon, Portugal">Lisboa, Portugal</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Siga-nos" data-en="Follow Us">Siga-nos</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.237 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.182-.78 1.172-4.97 1.172-4.97s-.299-.6-.299-1.486c0-1.39.806-2.428 1.81-2.428.852 0 1.264.64 1.264 1.408 0 .858-.545 2.14-.828 3.33-.236.995.5 1.807 1.48 1.807 1.778 0 3.144-1.874 3.144-4.58 0-2.393-1.72-4.068-4.176-4.068-2.845 0-4.516 2.135-4.516 4.34 0 .859.331 1.781.745 2.281a.3.3 0 0 1 .069.288l-.278 1.133c-.044.183-.145.223-.335.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.965-.525-2.291-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-pt="&copy; 2024 JM Mobiliário. Todos os direitos reservados." data-en="&copy; 2024 JM Furniture. All rights reserved.">&copy; 2024 JM Mobiliário. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

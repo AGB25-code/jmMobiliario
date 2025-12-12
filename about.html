@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Nossa História - JM Mobiliário</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .about-hero {
+            height: 60vh;
+            min-height: 500px;
+            background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1920&h=1080&fit=crop');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+        }
+
+        .about-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(44, 24, 16, 0.6);
+        }
+
+        .about-hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: var(--white);
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .about-hero-title {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .about-hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .story-section {
+            padding: 6rem 0;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            margin-bottom: 6rem;
+        }
+
+        .story-grid:nth-child(even) {
+            direction: rtl;
+        }
+
+        .story-grid:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .story-content h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .story-content .year {
+            display: inline-block;
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .story-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .story-image {
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+
+        .story-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .values-section {
+            background-color: var(--white);
+            padding: 6rem 0;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            transition: var(--transition);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary);
+            border-radius: 50%;
+        }
+
+        .value-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--accent);
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .value-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-light);
+        }
+
+        .team-section {
+            padding: 6rem 0;
+            background-color: var(--secondary);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-photo {
+            width: 100%;
+            height: 350px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            background-color: #E5E5E5;
+            border: 2px solid var(--accent);
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: var(--transition);
+        }
+
+        .team-member:hover .team-photo img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .team-member h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member .role {
+            font-size: 0.95rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 1024px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .story-grid:nth-child(even) {
+                direction: ltr;
+            }
+
+            .story-image {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-hero {
+                min-height: 400px;
+                margin-top: 70px;
+            }
+
+            .story-section,
+            .values-section,
+            .team-section {
+                padding: 4rem 0;
+            }
+
+            .story-content h3 {
+                font-size: 2rem;
+            }
+
+            .values-grid,
+            .team-grid {
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="index.html"><img src="logo.png" alt="JM Logo"></a>
+            </div>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="about.html" class="nav-link active">JM</a></li>
+                    <li><a href="catalog.html" class="nav-link">Catalogo</a></li>
+                    <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                    <li><a href="showroom.html" class="nav-link">Showroom</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="contact.html" class="cta-button">Peça já o seu orçamento</a>
+                    <div class="language-toggle">
+                        <button class="lang-btn active" data-lang="pt">PT</button>
+                        <span class="lang-separator">|</span>
+                        <button class="lang-btn" data-lang="en">EN</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="about-hero-overlay"></div>
+        <div class="about-hero-content">
+            <h1 class="about-hero-title" data-pt="A Nossa História" data-en="Our Story">A Nossa História</h1>
+            <p class="about-hero-subtitle" data-pt="Décadas de excelência, tradição e inovação" data-en="Decades of excellence, tradition and innovation">Décadas de excelência, tradição e inovação</p>
+        </div>
+    </section>
+
+    <!-- Story Timeline -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-content">
+                    <span class="year">1985</span>
+                    <h3 data-pt="O Início" data-en="The Beginning">O Início</h3>
+                    <p data-pt="Tudo começou numa pequena oficina em Lisboa, onde José Miguel, com uma paixão incansável pela arte da marcenaria, deu os primeiros passos naquilo que viria a ser a JM. Com apenas algumas ferramentas e um sonho imenso, começou a criar peças únicas de mobiliário, dedicando cada detalhe ao seu nome e reputação." data-en="It all started in a small workshop in Lisbon, where José Miguel, with a tireless passion for the art of carpentry, took the first steps in what would become JM. With just a few tools and a huge dream, he began creating unique pieces of furniture, dedicating every detail to his name and reputation.">Tudo começou numa pequena oficina em Lisboa, onde José Miguel, com uma paixão incansável pela arte da marcenaria, deu os primeiros passos naquilo que viria a ser a JM. Com apenas algumas ferramentas e um sonho imenso, começou a criar peças únicas de mobiliário, dedicando cada detalhe ao seu nome e reputação.</p>
+                </div>
+                <div class="story-image">
+                    <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&h=600&fit=crop" alt="Workshop 1985">
+                </div>
+            </div>
+
+            <div class="story-grid">
+                <div class="story-content">
+                    <span class="year">1995</span>
+                    <h3 data-pt="Crescimento e Reconhecimento" data-en="Growth and Recognition">Crescimento e Reconhecimento</h3>
+                    <p data-pt="Uma década depois, a JM já era reconhecida pela qualidade excecional e design atemporal. A expansão tornou-se inevitável. Novas instalações, uma equipa de artesãos talentosos e a introdução de técnicas inovadoras permitiram à marca alcançar novos patamares, mantendo sempre a essência da produção artesanal." data-en="A decade later, JM was already recognized for its exceptional quality and timeless design. Expansion became inevitable. New facilities, a team of talented artisans and the introduction of innovative techniques allowed the brand to reach new heights, always maintaining the essence of artisan production.">Uma década depois, a JM já era reconhecida pela qualidade excecional e design atemporal. A expansão tornou-se inevitável. Novas instalações, uma equipa de artesãos talentosos e a introdução de técnicas inovadoras permitiram à marca alcançar novos patamares, mantendo sempre a essência da produção artesanal.</p>
+                </div>
+                <div class="story-image">
+                    <img src="https://images.unsplash.com/photo-1581092918484-8313e1f6d11e?w=800&h=600&fit=crop" alt="Expansion 1995">
+                </div>
+            </div>
+
+            <div class="story-grid">
+                <div class="story-content">
+                    <span class="year">2010</span>
+                    <h3 data-pt="Inovação Sustentável" data-en="Sustainable Innovation">Inovação Sustentável</h3>
+                    <p data-pt="Abraçando a responsabilidade ambiental, a JM iniciou uma revolução verde. Madeiras certificadas, processos eco-friendly e um compromisso inabalável com a sustentabilidade transformaram a marca numa referência de luxo consciente. Cada peça passou a contar não apenas uma história de beleza, mas também de respeito pela natureza." data-en="Embracing environmental responsibility, JM started a green revolution. Certified woods, eco-friendly processes and an unwavering commitment to sustainability transformed the brand into a reference for conscious luxury. Each piece now tells not just a story of beauty, but also of respect for nature.">Abraçando a responsabilidade ambiental, a JM iniciou uma revolução verde. Madeiras certificadas, processos eco-friendly e um compromisso inabalável com a sustentabilidade transformaram a marca numa referência de luxo consciente. Cada peça passou a contar não apenas uma história de beleza, mas também de respeito pela natureza.</p>
+                </div>
+                <div class="story-image">
+                    <img src="https://images.unsplash.com/photo-1603712725038-37c8afdf4c10?w=800&h=600&fit=crop" alt="Sustainability 2010">
+                </div>
+            </div>
+
+            <div class="story-grid">
+                <div class="story-content">
+                    <span class="year">2024</span>
+                    <h3 data-pt="Presente e Futuro" data-en="Present and Future">Presente e Futuro</h3>
+                    <p data-pt="Hoje, a JM é sinónimo de excelência no mobiliário de luxo. Com quase quatro décadas de experiência, continuamos fiéis aos nossos valores: qualidade impecável, design sofisticado e atenção ao detalhe. Olhamos para o futuro com a mesma paixão do primeiro dia, prontos para criar as peças que definirão as próximas gerações." data-en="Today, JM is synonymous with excellence in luxury furniture. With almost four decades of experience, we remain true to our values: impeccable quality, sophisticated design and attention to detail. We look to the future with the same passion as day one, ready to create the pieces that will define the next generations.">Hoje, a JM é sinónimo de excelência no mobiliário de luxo. Com quase quatro décadas de experiência, continuamos fiéis aos nossos valores: qualidade impecável, design sofisticado e atenção ao detalhe. Olhamos para o futuro com a mesma paixão do primeiro dia, prontos para criar as peças que definirão as próximas gerações.</p>
+                </div>
+                <div class="story-image">
+                    <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=800&h=600&fit=crop" alt="Present Day">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label" data-pt="OS NOSSOS VALORES" data-en="OUR VALUES">OS NOSSOS VALORES</span>
+                <h2 class="section-title" data-pt="O Que Nos Define" data-en="What Defines Us">O Que Nos Define</h2>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <h3 data-pt="Artesanato Tradicional" data-en="Traditional Craftsmanship">Artesanato Tradicional</h3>
+                    <p data-pt="Cada peça é meticulosamente criada à mão pelos nossos mestres artesãos, preservando técnicas centenárias de marcenaria que garantem qualidade e exclusividade inigualáveis." data-en="Each piece is meticulously handcrafted by our master artisans, preserving centuries-old carpentry techniques that guarantee unparalleled quality and exclusivity.">Cada peça é meticulosamente criada à mão pelos nossos mestres artesãos, preservando técnicas centenárias de marcenaria que garantem qualidade e exclusividade inigualáveis.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"></path>
+                            <path d="M12 6v6l4 2"></path>
+                        </svg>
+                    </div>
+                    <h3 data-pt="Design Atemporal" data-en="Timeless Design">Design Atemporal</h3>
+                    <p data-pt="Criamos mobiliário que transcende as tendências passageiras. O nosso design equilibra elegância clássica com funcionalidade moderna, resultando em peças que permanecem relevantes através das gerações." data-en="We create furniture that transcends passing trends. Our design balances classic elegance with modern functionality, resulting in pieces that remain relevant through generations.">Criamos mobiliário que transcende as tendências passageiras. O nosso design equilibra elegância clássica com funcionalidade moderna, resultando em peças que permanecem relevantes através das gerações.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 3v18M3 12h18"></path>
+                            <circle cx="12" cy="12" r="9"></circle>
+                        </svg>
+                    </div>
+                    <h3 data-pt="Sustentabilidade" data-en="Sustainability">Sustentabilidade</h3>
+                    <p data-pt="Comprometemo-nos com o futuro do planeta. Utilizamos apenas madeiras certificadas de fontes responsáveis e implementamos processos eco-friendly em toda a nossa produção, sem comprometer a qualidade." data-en="We are committed to the future of the planet. We only use certified wood from responsible sources and implement eco-friendly processes throughout our production, without compromising quality.">Comprometemo-nos com o futuro do planeta. Utilizamos apenas madeiras certificadas de fontes responsáveis e implementamos processos eco-friendly em toda a nossa produção, sem comprometer a qualidade.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label" data-pt="A NOSSA EQUIPA" data-en="OUR TEAM">A NOSSA EQUIPA</span>
+                <h2 class="section-title" data-pt="Mestres Artesãos" data-en="Master Artisans">Mestres Artesãos</h2>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-photo">
+                    </div>
+                    <h3>José Miguel</h3>
+                    <p class="role" data-pt="FUNDADOR E MESTRE MARCENEIRO" data-en="FOUNDER & MASTER CARPENTER">FUNDADOR E MESTRE MARCENEIRO</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-photo">
+                    </div>
+                    <h3>Ana Sofia</h3>
+                    <p class="role" data-pt="DIRETORA DE DESIGN" data-en="DESIGN DIRECTOR">DIRETORA DE DESIGN</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-photo">
+                    </div>
+                    <h3>Ricardo Alves</h3>
+                    <p class="role" data-pt="ARTESÃO SENIOR" data-en="SENIOR ARTISAN">ARTESÃO SENIOR</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-photo">
+                    </div>
+                    <h3>Mariana Costa</h3>
+                    <p class="role" data-pt="ESPECIALISTA EM ACABAMENTOS" data-en="FINISHING SPECIALIST">ESPECIALISTA EM ACABAMENTOS</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title" data-pt="Vamos Criar Algo Extraordinário" data-en="Let's Create Something Extraordinary">Vamos Criar Algo Extraordinário</h2>
+                <p class="cta-text" data-pt="Entre em contacto e descubra como podemos transformar a sua visão em realidade." data-en="Get in touch and discover how we can turn your vision into reality.">Entre em contacto e descubra como podemos transformar a sua visão em realidade.</p>
+                <a href="contact.html" class="cta-button-large" data-pt="Falar Connosco" data-en="Talk to Us">Falar Connosco</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo"><img src="logo.png" alt="JM Logo"></div>
+                    <p class="footer-text" data-pt="Criando mobiliário de luxo excecional desde 1985. Qualidade, elegância e artesanato em cada peça." data-en="Creating exceptional luxury furniture since 1985. Quality, elegance and craftsmanship in every piece.">Criando mobiliário de luxo excecional desde 1985. Qualidade, elegância e artesanato em cada peça.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Navegação" data-en="Navigation">Navegação</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html" data-pt="Inicio" data-en="Home">Inicio</a></li>
+                        <li><a href="about.html" data-pt="Sobre Nós" data-en="About Us">Sobre Nós</a></li>
+                        <li><a href="catalog.html" data-pt="Catálogo" data-en="Catalog">Catálogo</a></li>
+                        <li><a href="portfolio.html" data-pt="Portfolio" data-en="Portfolio">Portfolio</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Contacto" data-en="Contact">Contacto</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@jm-mobiliario.pt">info@jm-mobiliario.pt</a></li>
+                        <li><a href="tel:+351210000000">+351 210 000 000</a></li>
+                        <li data-pt="Lisboa, Portugal" data-en="Lisbon, Portugal">Lisboa, Portugal</li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-title" data-pt="Siga-nos" data-en="Follow Us">Siga-nos</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.237 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.182-.78 1.172-4.97 1.172-4.97s-.299-.6-.299-1.486c0-1.39.806-2.428 1.81-2.428.852 0 1.264.64 1.264 1.408 0 .858-.545 2.14-.828 3.33-.236.995.5 1.807 1.48 1.807 1.778 0 3.144-1.874 3.144-4.58 0-2.393-1.72-4.068-4.176-4.068-2.845 0-4.516 2.135-4.516 4.34 0 .859.331 1.781.745 2.281a.3.3 0 0 1 .069.288l-.278 1.133c-.044.183-.145.223-.335.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.965-.525-2.291-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-pt="&copy; 2024 JM Mobiliário. Todos os direitos reservados." data-en="&copy; 2024 JM Furniture. All rights reserved.">&copy; 2024 JM Mobiliário. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
